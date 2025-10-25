@@ -6,18 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Calendar Versioning](https://calver.org/) of
 the following form: YYYY.0M.0D.
 
-## 2025.10.07
+## 2025.10.25
 
 ### Added
 
-- Completed Portfolio Part 2: Component Proof-of-Concept
-- Implemented optimized `TaskQueue` component with integrated priority handling
-- Added kernel methods: `addTask`, `removeTask`, `isEmpty`
-- Added secondary methods: `size`, `filterByKeyword`, `listTasks`
-- Added simple demonstration in `main` showing queue functionality
+- Completed Portfolio Part 3: Component Interfaces
+- Created `TaskQueueKernel` interface defining core queue operations
+- Created `TaskQueue` enhanced interface with convenience methods
+- Included full JavaDoc documentation and design-by-contract annotations
+- Added hierarchy diagram illustrating interface structure
 
 ### Updated
 
-- Simplified code for maximum clarity and performance
-- Replaced full sorting with linear insertion for priority maintenance
-- Renamed methods per instructor feedback for better readability
+- Revised design from proof-of-concept to align with OSU component discipline
+- Improved method naming consistency and parameter documentation
+- Updated CHANGELOG to include new additions and structure changes
