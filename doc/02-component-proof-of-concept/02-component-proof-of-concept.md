@@ -1,12 +1,10 @@
 # Portfolio Part 2: Component Proof-of-Concept
 
-- **Name**: <!-- TODO: fill with first and last name (e.g., Brutus Buckeye) then delete this comment -->
-- **Dot Number**: <!-- TODO: fill with OSU dot number (e.g., buckeye.17) then delete this comment -->
-- **Due Date**: <!-- TODO: fill out with due date and time (e.g., 10/17 @ 3:10 PM EST) then delete this comment -->
+- **Name**: Antonio D'Avanzo
+- **Dot Number**: davanzo.23
+- **Due Date**: 10/09 12:40
 
 ## Assignment Overview
-
-<!-- TODO: read the assignment overview then delete this comment -->
 
 Previously, you brainstormed three ideas, and hopefully you got some feedback as
 well. However, it's impossible to know how reasonable your design actually is
@@ -30,8 +28,6 @@ the more work you can put in now, the better.
 
 ## Assignment Checklist
 
-<!-- TODO: browse the checklist then delete this comment -->
-
 To be sure you have completed everything on this assignment, we have littered
 this document with TODO comments. You can browse all of them in VSCode by
 opening the TODOs window from the sidebar. The icon looks like a tree and will
@@ -53,8 +49,6 @@ to the tree diagram (you may remove this one as well):
 
 ## Assignment Learning Objectives
 
-<!-- TODO: read the assignment learning objectives then delete this comment -->
-
 Without learning objectives, there really is no clear reason why a particular
 assessment or activity exists. Therefore, to be completely transparent, here is
 what we're hoping you will learn through this particular aspect of the portfolio
@@ -67,8 +61,6 @@ project. Specifically, students should be able to:
 3. Assemble a minimal working implementation of one of their designs
 
 ## Assignment Rubric: 10 Points
-
-<!-- TODO: read the assignment rubric then delete this comment -->
 
 Again, to be completely transparent, most of the portfolio project, except the
 final submission, is designed as a formative assessment. Formative assessments
@@ -114,8 +106,7 @@ Below is further rationale/explanation for the rubric items above:
 > to create a new design. In you do end up picking one at random, you should
 > disclose that here as well.
 
-<!-- TODO: briefly argue your choice of design or design something
-new; then delete this comment -->
+I chose to move forward with the TaskQueue design because it’s the most practical and relevant to my interests in organization and task management software. Coming from your feedback, I ended up updating the approach on the methods such as addTask and enqueue to make sure that task priority is considered part of the kernel instead of just being a secondary feature. This makes sure that the behavior of the TaskQueue always respects the order.
 
 > Once you've argued your choice of design, make a branch in your new repo called
 > something like `proof-of-concept`. There are many ways to do this, but my
@@ -126,7 +117,88 @@ new; then delete this comment -->
 > we'll want a branch that you can later make a pull request from with all
 > your changes.
 
-<!-- TODO: make a new branch from main then delete this comment -->
+ ```java
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class TaskQueue {
+
+    private static class Task {
+        String description;
+        int priority;
+
+        Task(String description, int priority) {
+            this.description = description;
+            this.priority = priority;
+        }
+
+        public String toString() {
+            return description + " (Priority: " + priority + ")";
+        }
+    }
+
+    private final List<Task> tasks = new ArrayList<>();
+
+    // Kernel Methods
+    public void addTask(String description, int priority) {
+        Task t = new Task(description, priority);
+        int i = 0;
+        while (i < tasks.size() && tasks.get(i).priority >= priority) i++;
+        tasks.add(i, t);
+    }
+
+    public String removeTask() {
+        return tasks.isEmpty() ? "No tasks remaining." : tasks.remove(0).toString();
+    }
+
+    public boolean isEmpty() {
+        return tasks.isEmpty();
+    }
+
+    // Secondary Methods
+    public int size() {
+        return tasks.size();
+    }
+
+    public TaskQueue filterByKeyword(String keyword) {
+        TaskQueue filtered = new TaskQueue();
+        for (Task t : tasks)
+            if (t.description.toLowerCase().contains(keyword.toLowerCase()))
+                filtered.addTask(t.description, t.priority);
+        return filtered;
+    }
+
+    public void listTasks() {
+        if (tasks.isEmpty()) System.out.println("No tasks in queue.");
+        else tasks.forEach(System.out::println);
+    }
+
+    // Demonstration
+    public static void main(String[] args) {
+        TaskQueue queue = new TaskQueue();
+
+        queue.addTask("Finish Portfolio Part 2", 5);
+        queue.addTask("Review for CSE 2221 Exam", 4);
+        queue.addTask("Clean Workspace", 1);
+        queue.addTask("Submit ENGR 1181 Assignment", 3);
+
+        System.out.println("All Tasks (by Priority):");
+        queue.listTasks();
+
+        System.out.println("\nRemoved Task:");
+        System.out.println(queue.removeTask());
+
+        System.out.println("\nRemaining Tasks:");
+        queue.listTasks();
+
+        System.out.println("\nFiltered (Exam):");
+        queue.filterByKeyword("Exam").listTasks();
+
+        System.out.println("\nQueue Size: " + queue.size());
+    }
+}
+```
 
 ## Assignment Tasks
 
@@ -152,8 +224,6 @@ The following sections detail everything that you should do once you've
 completed the assignment.
 
 ### Changelog
-
-<!-- TODO: update CHANGELOG then delete this comment -->
 
 At the end of every assignment, you should update the
 [CHANGELOG.md](../../CHANGELOG.md) file found in the root of the project folder.
@@ -188,8 +258,6 @@ request merge (or at least tag your commits). This is not required.
 
 ### Submission
 
-<!-- TODO: read the submission instructions then delete this comment -->
-
 Assuming that your project is in a GitHub repo somewhere and your changes are on
 a proof-of-concept branch, then what we'll want you to do is create a pull
 request of all your changes. Pull requests are pretty easy to make if you're
@@ -210,8 +278,6 @@ recommend keeping the pull request open until at least a peer has had a chance
 to look over your changes. Otherwise, you defer needed changes to later pull
 requests, which could sacrifice the overall quality of your work or result in
 major rework.
-
-<!-- TODO: paste the URL to Carmen then delete this comment -->
 
 ### Peer Review
 
