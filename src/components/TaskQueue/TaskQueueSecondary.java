@@ -80,7 +80,6 @@ public abstract class TaskQueueSecondary implements TaskQueue {
         TaskQueue temp = this.newInstance();
         boolean first = true;
 
-        // Move everything into temp while building string
         while (!this.isEmpty()) {
             String task = this.removeTask();
             int priority = extractPriority(task);
@@ -92,7 +91,6 @@ public abstract class TaskQueueSecondary implements TaskQueue {
             first = false;
         }
 
-        // Restore original queue
         this.transferFrom(temp);
 
         sb.append("]");
@@ -110,7 +108,6 @@ public abstract class TaskQueueSecondary implements TaskQueue {
 
         TaskQueue other = (TaskQueue) obj;
 
-        // Build copies of both queues without mutating their final contents
         TaskQueue thisCopy = this.newInstance();
         TaskQueue tempThis = this.newInstance();
 
@@ -233,19 +230,16 @@ public abstract class TaskQueueSecondary implements TaskQueue {
             return result;
         }
 
-        // Remove front, remember it, then restore everything
         String front = this.removeTask();
         int pFront = extractPriority(front);
         temp.addTask(extractDescription(front), pFront);
 
-        // Move remaining tasks to temp
         while (!this.isEmpty()) {
             String t = this.removeTask();
             int p = extractPriority(t);
             temp.addTask(extractDescription(t), p);
         }
 
-        // Restore original queue
         this.transferFrom(temp);
 
         return front;
