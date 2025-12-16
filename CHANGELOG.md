@@ -73,6 +73,25 @@ the following form: YYYY.0M.0D.
 - Created initial drafts of the six portfolio assessments
 - Added READMEs to key folders like `test` and `lib` to explain their purpose
 
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+## 2025.12.09
+
+### Added
+
+- Designed and added JUnit test suite for TaskQueue component (kernel and secondary tests).
+- Created two use-case example applications demonstrating priority insertion, draining, and equality.
+
+### Updated
+
+- Polished and fixed TaskQueueSecondary and TaskQueue1L implementations:
+  - Corrected toString/equals/hashCode to preserve original queues and avoid state corruption.
+  - Implemented size, filterByKeyword, listTasks, peek, contains in TaskQueueSecondary using only kernel methods.
+  - Fixed parsing helpers for robust extraction of description and priority.
+- Added reflections and documentation for finishing-touches.
+
 [unreleased]: https://github.com/jrg94/portfolio-project/compare/v2024.08.07...HEAD
 [2024.08.07]: https://github.com/jrg94/portfolio-project/compare/v2024.01.07...v2024.08.07
 [2024.01.07]: https://github.com/jrg94/portfolio-project/releases/tag/v2024.01.07
